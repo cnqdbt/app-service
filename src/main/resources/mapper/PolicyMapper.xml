@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.juhaolian.appservice.dao.PolicyDao">
+    <resultMap id="BaseResultMap" type="com.juhaolian.appservice.domain.Policy">
+        <result column="from_version" property="fromVersion" />
+        <result column="to_version" property="toVersion" />
+        <result column="forced_update" property="forcedUpdate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        from_version, to_version, forced_update
+    </sql>
+
+    <select id="getPolicy" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List" />
+        from apk_update_policy
+        where app_id = #{appId}
+        and from_version = #{versionCode}
+        order by to_version desc limit 1;
+    </select>
+
+    <select id="getAllToPolicy" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from apk_update_policy
+        where app_id = #{appId}
+        and from_version = -1
+    </select>
+
+
+</mapper>
