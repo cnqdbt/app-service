@@ -9,8 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-// mapper 接口类扫描包配置
-@MapperScan("com.juhaolian.appservice.dao")
 public class Application {
 
 	@Bean
