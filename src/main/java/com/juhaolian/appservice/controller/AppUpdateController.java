@@ -3,6 +3,7 @@ package com.juhaolian.appservice.controller;
 import com.juhaolian.appservice.domain.VersionInfo;
 import com.juhaolian.appservice.domain.Version;
 import com.juhaolian.appservice.service.AppUpdateService;
+import com.juhaolian.appservice.utils.RestAPIResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,15 @@ public class AppUpdateController {
 
     }
 
-//    @RequestMapping(value = "/app-update", method = {RequestMethod.GET, RequestMethod.POST})
-//    public Version update(String customerId, Integer versionCode) {
-//        return appUpdateService.getUpdateVersion(versionCode);
+//    @RequestMapping(value = "/app-update", method = RequestMethod.POST)
+//    public Version update(@RequestBody VersionInfo vi) {
+//        return appUpdateService.getUpdateVersion(vi.getAppId(), vi.getVersionCode());
 //    }
 
     @RequestMapping(value = "/app-update", method = RequestMethod.POST)
-    public Version update(@RequestBody VersionInfo vi) {
-        return appUpdateService.getUpdateVersion(vi.getAppId(), vi.getVersionCode());
+    public RestAPIResult<Version> update(@RequestParam String appId, @RequestParam Integer versionCode) {
+        RestAPIResult<Version> result = new RestAPIResult<>();
+        result.setResponse(appUpdateService.getUpdateVersion(appId, versionCode));
+        return result;
     }
 }

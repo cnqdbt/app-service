@@ -30,6 +30,12 @@ public class AppUpdateServiceImpl implements AppUpdateService {
         Policy policy = policyDao.getPolicy(appId, versionCode);
         if (policy == null) {
             policy = policyDao.getAllToPolicy(appId);
+            // all-to policy also null
+            if (policy == null) {
+                Version v = new Version();
+                v.setResultCode(1);
+                return v;
+            }
         }
 
         if (versionCode >= policy.getToVersion() ) {
@@ -39,6 +45,12 @@ public class AppUpdateServiceImpl implements AppUpdateService {
         }
 
         Version targetVersion = versionUpdateDao.getUpdateVersion(appId, policy.getToVersion());
+
+        if (targetVersion == null) {
+            Version v = new Version();
+            v.setResultCode(1);
+            return v;
+        }
 
         if (policy.getForcedUpdate() == 1) {
             targetVersion.setNeedUpdate(FORCED_UPDATE);
