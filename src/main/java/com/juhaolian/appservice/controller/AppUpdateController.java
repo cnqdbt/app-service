@@ -15,25 +15,13 @@ public class AppUpdateController {
     @Autowired
     AppUpdateService appUpdateService;
 
-    @GetMapping("/key-validation")
-    public String keyValidation(@RequestParam String appkey, @RequestParam String appsecret) {
-        if (!appkey.isEmpty() && appkey.equals(appsecret)) {
-            return "true";
-        } else {
-            return "false";
-        }
-
-    }
-
 //    @RequestMapping(value = "/app-update", method = RequestMethod.POST)
 //    public Version update(@RequestBody VersionInfo vi) {
 //        return appUpdateService.getUpdateVersion(vi.getAppId(), vi.getVersionCode());
 //    }
 
     @RequestMapping(value = "/app-update", method = RequestMethod.POST)
-    public RestAPIResult<Version> update(@RequestParam String appId, @RequestParam Integer versionCode) {
-        RestAPIResult<Version> result = new RestAPIResult<>();
-        result.setResponse(appUpdateService.getUpdateVersion(appId, versionCode));
-        return result;
+    public Version update(@RequestParam String appId, @RequestParam Integer versionCode) {
+        return appUpdateService.getUpdateVersion(appId, versionCode);
     }
 }

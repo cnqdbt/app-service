@@ -25,6 +25,8 @@ public class AppUpdateServiceImpl implements AppUpdateService {
     private static final int FORCED_UPDATE = 1;
     private static final int OPTIONAL_UPDATE = 2;
 
+    private static final int FAILED = 1;
+
 
     public Version getUpdateVersion(String appId, Integer versionCode) {
         Policy policy = policyDao.getPolicy(appId, versionCode);
@@ -33,7 +35,7 @@ public class AppUpdateServiceImpl implements AppUpdateService {
             // all-to policy also null
             if (policy == null) {
                 Version v = new Version();
-                v.setResultCode(1);
+                v.setResultCode(FAILED);
                 return v;
             }
         }
@@ -48,7 +50,7 @@ public class AppUpdateServiceImpl implements AppUpdateService {
 
         if (targetVersion == null) {
             Version v = new Version();
-            v.setResultCode(1);
+            v.setResultCode(FAILED);
             return v;
         }
 
