@@ -3,11 +3,11 @@
 <mapper namespace="com.juhaolian.appservice.dao.KeyValidationDao">
 
     <select id="validate" resultType="java.lang.Integer" parameterType="Map">
-        select
-            count(*)
+        select id
         from wgplatform
         where platformcode = #{appkey}
         and platformsecret = #{appsecret}
+        limit 1
     </select>
 
 </mapper>

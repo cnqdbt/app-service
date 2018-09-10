@@ -25,8 +25,10 @@ public class AppkeyValidateServiceImpl implements AppkeyValidateService {
 
     public KeyValidation validate(String appkey, String appsecret) {
         KeyValidation kv = new KeyValidation();
+        Integer platformId = keyValidationDao.validate(appkey, appsecret);
 
-        if (keyValidationDao.validate(appkey, appsecret) == 1) {
+        if (platformId != null) {
+            kv.setPlatformId(platformId);
             kv.setResultCode(SUCCESS);
             kv.setIsValid(VALID);
         } else {

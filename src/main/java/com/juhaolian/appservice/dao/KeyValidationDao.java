@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Param;
 
 
 public interface KeyValidationDao {
-    int validate(@Param("appkey") String appkey, @Param("appsecret") String appsecret);
+    Integer validate(@Param("appkey") String appkey, @Param("appsecret") String appsecret);
 }

@@ -9,6 +9,8 @@ public class KeyValidation {
 
     private Integer isValid;
 
+    private Integer platformId;
+
     public void setResultCode(Integer resultCode) {
         this.resultCode = resultCode;
     }
@@ -25,6 +27,11 @@ public class KeyValidation {
         return isValid;
     }
 
+    public Integer getPlatformId() {
+        return platformId;
+    }
 
-
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
+    }
 }
